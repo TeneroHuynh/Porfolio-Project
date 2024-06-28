@@ -1,1 +1,32 @@
+-- Show general_data table & order by EmployeeID 
 
+SELECT * 
+FROM general_data
+order by Employeeid
+
+-- Count number of employees quitting
+
+SELECT 
+    Count(employeeid)
+FROM general_data
+where attrition = 'Yes'
+
+-- Calculate attrition rate 
+
+SELECT 
+    (COUNT(CASE WHEN attrition = 'Yes' THEN 1 END) * 1.0 / 
+    COUNT(CASE WHEN attrition = 'No' THEN 1 END)) AS attrition_rate
+FROM  
+    general_data
+
+-- Join employee_survey_data table and manager_Surver_data table to get the survey information of first 10 employees
+
+SELECT 
+    e.*
+    , m.JobInvolvement, m. performancerating
+from general_data g
+join employee_survey_data e on g.EmployeeID = e.EmployeeID
+Join manager_survey_data m ON g.EmployeeID = m.EmployeeID
+where g.employeeID <= 10
+
+-- 
